@@ -4,7 +4,9 @@
 # EPAYMENT -Multi Payment Provider for .Net Standard
 
 
-Factory pattern structure written with .net5 for sms services
+Tüm bankalarla uyumlu sanal pos servisi
+
+Factory pattern structure written with .net5 for payment services
 
  ASSECO,FINANSBANK,VAKIFBANK,GARANTI,YAPIKREDI,PAYTR
 
