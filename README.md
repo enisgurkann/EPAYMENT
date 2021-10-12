@@ -1,7 +1,7 @@
 
 ![alt text](https://github.com/enisgurkann/EPAYMENT/blob/master/Epayment.PNG?raw=true)
 
-# EPAYMENT -Multi Payment Provider for .Net Standard
+# EPAYMENT -Multi Payment Provider for .Net Core
 
 
 Tüm bankalarla uyumlu sanal pos servisi
