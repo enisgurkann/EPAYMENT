@@ -38,23 +38,23 @@ PM> Using
 ```csharp
      
      
-            var _type = PosEngineType.ASSECO;
-            var paymentProvider = _paymentProviderFactory.Create(_type);
-            var paymentParameterResult = paymentProvider.GetPaymentParameters(new PaymentRequest()
-            {
-                OrderNumber = OrderNumber,
-                Username = "Username",
-                Password = "Password",
-                ClientId = "ClientID",
-                Email = "test@hotmail.com",
-                Phone = "0000000",
-                TotalAmount = 1,
-                SuccessUrl = $"https://{HttpContext.Request.Host}/Payment/Success?OrderNumber={OrderNumber}",
-                FailUrl = $"https://{HttpContext.Request.Host}/Payment/Fail?OrderNumber={OrderNumber}",
-                CustomerIpAddress = HttpContext.Connection.RemoteIpAddress.ToString()
-            });
+	var _type = PosEngineType.ASSECO;
+	var paymentProvider = _paymentProviderFactory.Create(_type);
+	var paymentParameterResult = paymentProvider.GetPaymentParameters(new PaymentRequest()
+	{
+		OrderNumber = OrderNumber,
+		Username = "Username",
+		Password = "Password",
+		ClientId = "ClientID",
+		Email = "test@hotmail.com",
+		Phone = "0000000",
+		TotalAmount = 1,
+		SuccessUrl = $"https://{HttpContext.Request.Host}/Payment/Success?OrderNumber={OrderNumber}",
+		FailUrl = $"https://{HttpContext.Request.Host}/Payment/Fail?OrderNumber={OrderNumber}",
+		CustomerIpAddress = HttpContext.Connection.RemoteIpAddress.ToString()
+	});
 
-            var paymentForm = _paymentProviderFactory.CreatePaymentForm(paymentParameterResult.Parameters, _config.GetValue<Uri>("Payment:PosType"));
+ var paymentForm = _paymentProviderFactory.CreatePaymentForm(paymentParameterResult.Parameters, _config.GetValue<Uri>("Payment:PosType"));
     
 ```
 
