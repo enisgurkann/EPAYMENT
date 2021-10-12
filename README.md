@@ -6,7 +6,7 @@
 
 Factory pattern structure written with .net5 for sms services
 
- ASSECO,VAKIFBANK,GARANTI,YAPIKREDI,PAYTR
+ ASSECO,FINANSBANK,VAKIFBANK,GARANTI,YAPIKREDI,PAYTR
 
 ## Payment Provider Usage
 
