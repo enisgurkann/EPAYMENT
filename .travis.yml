@@ -1,0 +1,10 @@
+language: csharp
+mono: none
+dotnet: 5.0.100
+
+dist: bionic
+os: linux
+
+script:
+- dotnet build ./EPAYMENT.sln --configuration Release
+- dotnet test ./EPAYMENT.sln --configuration Release
