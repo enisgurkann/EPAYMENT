@@ -16,15 +16,6 @@ namespace EPAYMENT
             return BinNumber;
         }
 
-        public static KeyValuePair<string, string> GetPair(this NameValueCollection source, string key)
-        {
-            return new KeyValuePair<string, string>
-            (
-                key,
-                source.Get(key)
-            );
-        }
-
         public static string GetMaskedNumber(string source)
         {
             StringBuilder sb = new StringBuilder(source);
