@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPAYMENT", "EPAYMENT\EPAYME
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPAYMENT.TEST", "EPAYMENT.TEST\EPAYMENT.TEST.csproj", "{93FB9063-5A16-46E5-8E77-7729ECF77D48}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{57BDADDD-9CA4-4E0C-8E96-F084AE9138AA}"
+	ProjectSection(SolutionItems) = preProject
+		Epayment.PNG = Epayment.PNG
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

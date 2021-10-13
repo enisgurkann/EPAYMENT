@@ -10,6 +10,8 @@
     <Description>Multi Payment Provider</Description>
     <Company>EPAYMENT</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseFile>README.md</PackageLicenseFile>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\docs\epayment_icon.png">
+    <None Include="..\epayment_icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
