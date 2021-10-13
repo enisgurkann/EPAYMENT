@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace EPAYMENT
@@ -13,6 +14,15 @@ namespace EPAYMENT
                 BinNumber = CardNumber.Substring(0, 6);
 
             return BinNumber;
+        }
+
+        public static KeyValuePair<string, string> GetPair(this NameValueCollection source, string key)
+        {
+            return new KeyValuePair<string, string>
+            (
+                key,
+                source.Get(key)
+            );
         }
 
         public static string GetMaskedNumber(string source)
