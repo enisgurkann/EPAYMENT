@@ -42,7 +42,7 @@ PM> Injection
 
 ```csharp
   private readonly IPaymentProviderFactory _paymentProviderFactory;
-  public SmsController(IPaymentProviderFactory paymentProviderFactory)
+  public SanalPosController(IPaymentProviderFactory paymentProviderFactory)
   {
        _paymentProviderFactory = paymentProviderFactory;
   }
