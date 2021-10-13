@@ -53,7 +53,6 @@ PM> Using
 ```
 ```csharp
      
-     
 	var _type = PosEngineType.ASSECO;
 	var paymentProvider = _paymentProviderFactory.Create(_type);
 	var paymentParameterResult = paymentProvider.GetPaymentParameters(new PaymentRequest()
@@ -69,8 +68,7 @@ PM> Using
 		FailUrl = $"https://{HttpContext.Request.Host}/Payment/Fail?OrderNumber={OrderNumber}",
 		CustomerIpAddress = HttpContext.Connection.RemoteIpAddress.ToString()
 	});
-
- var paymentForm = _paymentProviderFactory.CreatePaymentForm(paymentParameterResult.Parameters, _config.GetValue<Uri>("Payment:PosType"));
+	var paymentForm = _paymentProviderFactory.CreatePaymentForm(paymentParameterResult.Parameters, _config.GetValue<Uri>("Payment:PosType"));
     
 ```
 
