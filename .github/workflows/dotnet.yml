@@ -1,0 +1,21 @@
+name: .NET Core CI
+
+on: [push]
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup .NET Core 6.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - uses: actions/checkout@v1
+    - name: Build
+      run: dotnet build ./EPAYMENT.sln --configuration Release
+    - name: Test
+      run: dotnet test ./EPAYMENT.sln
+    - name: Pack
+      run: dotnet pack -c Release --no-build -p:PackageVersion=1.0.${{ github.run_number }} -o ./packages
+    - name: Push
+      run: dotnet nuget push ./packages/EPAYMENT.*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json
