@@ -31,7 +31,7 @@ PM> Install-Package EPAYMENT
 ```
 
 ```csharp
-  services.AddSingleton<IPaymentProviderFactory, PaymentProviderFactory>();
+  services.AddPaymentProvider();
  ```
  
  
