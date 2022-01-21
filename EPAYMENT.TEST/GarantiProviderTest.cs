@@ -23,7 +23,7 @@ namespace EPAYMENT.TEST
             Mock<IHttpClientFactory> httpClientFactory = new Mock<IHttpClientFactory>();
 
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-            var paymentProviderFactory = new PaymentProviderFactory(serviceProvider, httpClientFactory.Object);
+            var paymentProviderFactory = new Factory.PaymentProviderFactory(serviceProvider, httpClientFactory.Object);
             IPaymentProvider provider = paymentProviderFactory.Create(Models.Enums.PosEngineType.GARANTI);
 
             var paymentGatewayResult = provider.GetPaymentParameters(new PaymentRequest

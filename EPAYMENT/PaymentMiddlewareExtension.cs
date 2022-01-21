@@ -1,18 +1,30 @@
-﻿using EPAYMENT.Middleware;
-using Microsoft.AspNetCore.Builder;
+﻿using EPAYMENT.Factory;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPAYMENT
 {
     public static class PaymentMiddlewareExtension
     {
-        public static IApplicationBuilder UsePayment(this IApplicationBuilder builder)
+        public static IMvcCoreBuilder AddPaymentProvider(this IServiceCollection services)
         {
-            return builder.UseMiddleware<PaymentMiddleware>();
+            if (services == null) throw new ArgumentNullException(nameof(services));
+
+            var builder = services.AddMvcCore();
+            builder.Services.AddTransient<IPaymentProviderFactory, PaymentProviderFactory>();
+
+            return builder;
+        }
+        public static IMvcCoreBuilder AddPaymentProvider(this IServiceCollection services, Action<MvcOptions> setupAction)
+        {
+            if (services == null) throw new ArgumentNullException(nameof(services));
+            if (setupAction == null) throw new ArgumentNullException(nameof(setupAction));
+
+            var builder = services.AddPaymentProvider();
+            builder.Services.Configure(setupAction);
+
+            return builder;
         }
     }
 }

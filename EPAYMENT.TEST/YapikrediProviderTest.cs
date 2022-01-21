@@ -16,19 +16,22 @@ namespace EPAYMENT.TEST
         [Fact]
         public void PaymentProviderFactory_CreateYapikrediPaymentProvider()
         {
-            ServiceCollection serviceCollection = new ServiceCollection();
+            var serviceCollection = new ServiceCollection();
             serviceCollection.AddHttpClient();
 
 
-            Mock<IHttpClientFactory> httpClientFactory = new Mock<IHttpClientFactory>();
+            var httpClientFactory = new Mock<IHttpClientFactory>();
 
-            ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-            var paymentProviderFactory = new PaymentProviderFactory(serviceProvider, httpClientFactory.Object);
-            IPaymentProvider provider = paymentProviderFactory.Create(Models.Enums.PosEngineType.YAPIKREDI);
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            var paymentProviderFactory = new Factory.PaymentProviderFactory(serviceProvider, httpClientFactory.Object);
+            var provider = paymentProviderFactory.Create(Models.Enums.PosEngineType.YAPIKREDI);
 
             var paymentGatewayResult = provider.GetPaymentParameters(new PaymentRequest
             {
-                BankUrl = "https://entegrasyon.asseco-see.com.tr/fim/est3Dgate",
+                Username = "enis",
+                StoreKey = "123123123",
+                ClientId = "123",
+                Password = "123",
                 CardHolderName = "Enis Gürkan",
                 CardNumber = "4309-5345-4803-4109",
                 ExpireMonth = 12,

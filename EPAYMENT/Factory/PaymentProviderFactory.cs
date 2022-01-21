@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 
-namespace EPAYMENT
+namespace EPAYMENT.Factory
 {
     public class PaymentProviderFactory : IPaymentProviderFactory
     {

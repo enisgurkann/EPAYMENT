@@ -3,13 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EPAYMENT.Providers
 {
@@ -17,7 +14,7 @@ namespace EPAYMENT.Providers
     {
         public PaymentParameterResult GetPaymentParameters(PaymentRequest request)
         {
-            PaymentParameterResult model = new PaymentParameterResult();
+            var model = new PaymentParameterResult();
             //
             // API Entegrasyon Bilgileri - Mağaza paneline giriş yaparak BİLGİ sayfasından alabilirsiniz.
             string merchant_id = request.ClientId;
@@ -87,7 +84,7 @@ namespace EPAYMENT.Providers
 
 
             // Gönderilecek veriler oluşturuluyor
-            NameValueCollection data = new NameValueCollection();
+            var data = new NameValueCollection();
             data["merchant_id"] = merchant_id;
             data["user_ip"] = user_ip;
             data["merchant_oid"] = merchant_oid;
@@ -101,7 +98,7 @@ namespace EPAYMENT.Providers
             //
             // Token oluşturma fonksiyonu, değiştirilmeden kullanılmalıdır.
             string Birlestir = string.Concat(merchant_id, user_ip, merchant_oid, emailstr, payment_amountstr.ToString(), user_basketstr, no_installment, max_installment, currency, test_mode, merchant_salt);
-            HMACSHA256 hmac = new HMACSHA256(Encoding.UTF8.GetBytes(merchant_key));
+            var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(merchant_key));
             byte[] b = hmac.ComputeHash(Encoding.UTF8.GetBytes(Birlestir));
             data["paytr_token"] = Convert.ToBase64String(b);
             //
@@ -118,27 +115,28 @@ namespace EPAYMENT.Providers
             data["currency"] = currency;
             data["lang"] = lang;
 
-            using (WebClient client = new WebClient())
+            using (var client = new WebClient())
             {
                 client.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
                 byte[] result = client.UploadValues("https://www.paytr.com/odeme/api/get-token", "POST", data);
                 string ResultAuthTicket = Encoding.UTF8.GetString(result);
-                dynamic json = JValue.Parse(ResultAuthTicket);
+                var res = JsonConvert.DeserializeObject<ResultAuthTicketModel>(ResultAuthTicket);
 
-                if (json.status == "success")
+                if (res.status == "success")
                 {
                     model.Success = true;
-                    model.PaymentUrl = new Uri("https://www.paytr.com/odeme/guvenli/" + json.token + "");
+                    model.PaymentUrl = new Uri("https://www.paytr.com/odeme/guvenli/" + res.token + "");
                 }
                 else
                 {
                     model.Success = false;
-                    model.ErrorMessage = "PAYTR IFRAME failed. reason:" + json.reason + "";
+                    model.ErrorMessage = "PAYTR IFRAME failed. reason:" + res.reason + "";
                 }
             }
 
             return model;
         }
+
 
         public PaymentResult GetPaymentResult(IFormCollection form)
         {
@@ -151,12 +149,22 @@ namespace EPAYMENT.Providers
 
 
 
-            PaymentResult result = new PaymentResult();
+            var result = new PaymentResult();
             result.Success = (status == "success");
             result.ErrorCode = failed_reason_code;
             result.ErrorMessage = failed_reason_msg;
             result.TransactionId = merchant_oid;
             return result;
+        }
+
+
+
+
+        public class ResultAuthTicketModel
+        {
+            public string status { get; set; }
+            public string token { get; set; }
+            public string reason { get; set; }
         }
     }
 }

@@ -16,15 +16,13 @@ namespace EPAYMENT.TEST
         [Fact]
         public void PaymentProviderFactory_CreatePayTRPaymentProvider()
         {
-            ServiceCollection serviceCollection = new ServiceCollection();
+            var serviceCollection = new ServiceCollection();
             serviceCollection.AddHttpClient();
 
-
-            Mock<IHttpClientFactory> httpClientFactory = new Mock<IHttpClientFactory>();
-
-            ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-            var paymentProviderFactory = new PaymentProviderFactory(serviceProvider, httpClientFactory.Object);
-            IPaymentProvider provider = paymentProviderFactory.Create(Models.Enums.PosEngineType.PAYTR);
+            var httpClientFactory = new Mock<IHttpClientFactory>();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            var paymentProviderFactory = new Factory.PaymentProviderFactory(serviceProvider, httpClientFactory.Object);
+            var provider = paymentProviderFactory.Create(Models.Enums.PosEngineType.PAYTR);
 
             var paymentGatewayResult = provider.GetPaymentParameters(new PaymentRequest
             {
@@ -50,7 +48,7 @@ namespace EPAYMENT.TEST
                 FailUrl = "http://www.google.com",
             });
 
-            Assert.True(paymentGatewayResult.Success);
+            Assert.Equal(paymentGatewayResult.ErrorMessage, "PAYTR IFRAME failed. reason:Gecersiz istek veya magaza aktif degil");
         }
     
     }

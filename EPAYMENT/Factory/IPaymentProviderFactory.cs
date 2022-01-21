@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace EPAYMENT
+namespace EPAYMENT.Factory
 {
     public interface IPaymentProviderFactory
     {
